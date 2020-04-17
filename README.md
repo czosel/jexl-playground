@@ -1,7 +1,6 @@
 # jexl-playground
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+Interactive playground for [Jexl](https://github.com/TomFrost/Jexl/). Try it [here](http://czosel.github.io/jexl-playground/).
 
 ## Prerequisites
 
