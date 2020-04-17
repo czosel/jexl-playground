@@ -1,5 +1,32 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
-{{!-- Feel free to remove this! --}}
+<h1>JEXL Playground</h1>
 
-{{outlet}}
+<section class="controls">
+  <button type="button" {{on "click" this.clear}}>Clear</button>
+  <button type="button" {{on "click" this.toggleAst}}>
+    {{if this.showAst "Hide" "Show"}} AST
+  </button>
+</section>
+
+<div class="content">
+  <section class="input">
+    <h3>Input</h3>
+    <Textarea @value={{this.input}} id="input" />
+  </section>
+
+  <section class="context">
+    <h3>Context</h3>
+    <Textarea @value={{this.context}} id="context" />
+  </section>
+
+  <section class="output">
+    <h3>Output</h3>
+    <Textarea @value={{this.output}} id="output" readonly="true" />
+  </section>
+
+  {{#if this.showAst}}
+    <section class="ast">
+      <h3>AST</h3>
+      <Textarea @value={{this.ast}} id="ast" />
+    </section>
+  {{/if}}
+</div>
