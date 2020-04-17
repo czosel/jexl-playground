@@ -8,9 +8,9 @@ import jexl from "jexl";
 const safeEval = code => Function('"use strict";return (' + code + ")")();
 
 export default class ApplicationController extends Controller {
-  queryParams = ["input", "context"];
+  queryParams = ["input", "context", "transforms"];
 
-  @tracked input = 'assoc[.first == "Lana"].last';
+  @tracked input = 'assoc[.first == "Lana"].last|greet';
   @tracked context = JSON.stringify(
     {
       name: { first: "Sterling", last: "Archer" },
@@ -25,12 +25,21 @@ export default class ApplicationController extends Controller {
     2
   );
 
+  @tracked transforms = `{
+  greet: name => "Hi " + name
+}`;
+
   @tracked showAst = false;
 
   version = version;
 
   get output() {
     try {
+      const transforms = safeEval(this.transforms);
+      Object.entries(transforms).map(([key, transform]) => {
+        jexl.addTransform(key, transform);
+      });
+
       return JSON.stringify(
         jexl.evalSync(this.input, safeEval(this.context)),
         null,
@@ -62,5 +71,6 @@ export default class ApplicationController extends Controller {
   clear() {
     this.input = "";
     this.context = "{}";
+    this.transforms = "{}";
   }
 }
