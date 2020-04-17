@@ -1,0 +1,36 @@
+<header>
+  <h1>Jexl <span class="subtitle">Playground</span></h1>
+  <a class="github-button" href="https://github.com/TomFrost/Jexl" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star TomFrost/Jexl on GitHub">Star</a>
+</header>
+
+<section class="controls">
+  <button type="button" {{on "click" this.clear}}>Clear</button>
+  <button type="button" {{on "click" this.toggleAst}}>
+    {{if this.showAst "Hide" "Show"}} AST
+  </button>
+</section>
+
+<div class="content">
+  <section class="input">
+    <h3>Input</h3>
+    <Textarea @value={{this.input}} id="input" />
+  </section>
+
+  <section class="context">
+    <h3>Context</h3>
+    <Textarea @value={{this.context}} id="context" />
+  </section>
+
+  {{#if this.showAst}}
+    <section class="ast">
+      <h3>AST</h3>
+      <Textarea @value={{this.ast}} id="ast" />
+    </section>
+  {{/if}}
+
+  <section class="output">
+    <h3>Output</h3>
+    <Textarea @value={{this.output}} id="output" readonly="true" />
+  </section>
+
+</div>
